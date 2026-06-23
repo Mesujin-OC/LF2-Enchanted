@@ -9424,8 +9424,7 @@
 
         Loaded = 4;
        }
-       if(Vect01[0] == "enhance"){if(Base_FPS == 8){Base_FPS = 32;} else {if(Base_FPS == 16){Base_FPS = 8;} else {Base_FPS = 16;}}}
-       if(Vect01[0] == "fps"){if(Vrab0003 == 16){Vrab0003 = 8;} else {if(Vrab0003 == 8){Vrab0003 = 4;} else {Vrab0003 = 16;}}}
+       if(Vect01[0] == "speedup"){if(Base_FPS == 8){Base_FPS = 16;} else {if(Base_FPS == 16){Base_FPS = 32;} else {Base_FPS = 8;}}}
        if(Vect01[0] == "sort"){Sorting = !Sorting;}
        if(Vect01[0] == "extract")
        {

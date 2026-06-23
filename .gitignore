@@ -363,3 +363,6 @@ MigrationBackup/
 FodyWeavers.xsd
 /Outputs
 /Output
+/Output - Copy
+/Resource/Includes/AngelScript/angelscript64.lib
+/Resource/Includes/AngelScript/angelscriptz.lib

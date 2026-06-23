@@ -16,7 +16,7 @@
    SetWindowLongPtr(Hwnd01, GWL_STYLE, WS_OVERLAPPEDWINDOW);
    SetWindowLongPtr(Hwnd01, GWL_EXSTYLE, 0);
    ShowWindow(Hwnd01, SW_SHOWNORMAL);
-   SetWindowPos(Hwnd01, HWND_TOP, CW_USEDEFAULT, CW_USEDEFAULT, static_cast < LONG > (Vrab0005 + 16), static_cast < LONG > (Vrab0006 + 39), SWP_NOMOVE | SWP_NOZORDER | SWP_FRAMECHANGED);
+   SetWindowPos(Hwnd01, HWND_TOP, CW_USEDEFAULT, CW_USEDEFAULT, static_cast < LONG > (Vrab0005 + 16), static_cast < LONG > (Vrab0006 + 37), SWP_NOMOVE | SWP_NOZORDER | SWP_FRAMECHANGED);
   } else
   {
    SetWindowLongPtr(Hwnd01, GWL_STYLE, WS_POPUP);
@@ -68,7 +68,7 @@
  {
   Vrab001 = Vrab01; Vrab002 = Vrab02; Vrab003 = Vrab03; Vrab004 = Vrab04; Vrab005 = Vrab05; Vrab006 = Vrab06;
   ID3D11Texture2D *Texd01 = 0; ID3D11Resource *Resh01; D3D11_TEXTURE2D_DESC Desc01;
-  Imge0001[Vrab01].Texture->GetResource(&Resh01);
+  Imge0001[Vrab01]->Texture->GetResource(&Resh01);
   Desc01.Width = ruint32(-1); Desc01.Height = ruint32(-1);
   if(SUCCEEDED(Resh01->QueryInterface<ID3D11Texture2D>(&Texd01))) Texd01->GetDesc(&Desc01);
   Vrab007 = Desc01.Width; Vrab008 = Desc01.Height;
@@ -78,7 +78,7 @@
  {
   Vrab001 = Vrab01; Vrab002 = Vrab02; Vrab003 = Vrab03;
   ID3D11Texture2D *Texd01 = 0; ID3D11Resource *Resh01; D3D11_TEXTURE2D_DESC Desc01;
-  Imge0001[Vrab01].Texture->GetResource(&Resh01);
+  Imge0001[Vrab01]->Texture->GetResource(&Resh01);
   Desc01.Width = ruint32(-1); Desc01.Height = ruint32(-1);
   if(SUCCEEDED(Resh01->QueryInterface < ID3D11Texture2D > (&Texd01))) Texd01->GetDesc(&Desc01);
   Vrab006 = Desc01.Width; Vrab007 = Desc01.Height;
@@ -359,13 +359,13 @@
         statics insize Vrab05 = Disp0001[Vrab04]->Target; DirectX::XMFLOAT2 Flts01; RECT Rect02;
         if(Disp0001[Vrab04]->Post_X3 <= 360)
         {
-         Rect02 = Pics0001[Vrab05].Get_Image(); Flts01 = Pics0001[Vrab05].Get_Center();
+         Rect02 = Pics0001[Vrab05]->Get_Image(); Flts01 = Pics0001[Vrab05]->Get_Center();
          Rect01.left += rint32(Flts01.x); Rect01.top += rint32(Flts01.y);
          Rect01.right = Rect01.left + (LONG)Disp0001[Vrab04]->Post_X2 + (Rect02.right - Rect02.left); if(Rect01.right < Rect01.left) Rect01.right = Rect01.left;
          Rect01.bottom = Rect01.top + (LONG)Disp0001[Vrab04]->Post_Y2 + (Rect02.bottom - Rect02.top); if(Rect01.bottom < Rect01.top) Rect01.bottom = Rect01.top;
         } else
         {
-         Rect02 = Pics0001[Vrab05].Get_Specified(); Flts01 = Pics0001[Vrab05].Get_Mid();
+         Rect02 = Pics0001[Vrab05]->Get_Specified(); Flts01 = Pics0001[Vrab05]->Get_Mid();
          Rect01.left += rint32(Flts01.x) + 1; Rect01.top += rint32(Flts01.y) + 1;
          Rect01.right = Rect01.left + (LONG)Disp0001[Vrab04]->Post_X2 + (Rect02.right - Rect02.left); if(Rect01.right < Rect01.left) Rect01.right = Rect01.left;
          Rect01.bottom = Rect01.top + (LONG)Disp0001[Vrab04]->Post_Y2 + (Rect02.bottom - Rect02.top); if(Rect01.bottom < Rect01.top) Rect01.bottom = Rect01.top;
@@ -374,7 +374,7 @@
         auto Effc01 = DirectX::SpriteEffects_None;
         switch(Disp0001[Vrab04]->Effect){case 1: Effc01 = DirectX::SpriteEffects_FlipHorizontally; break; case 2: Effc01 = DirectX::SpriteEffects_FlipVertically; break; case 3: Effc01 = DirectX::SpriteEffects_FlipBoth; break; default: break;}
         
-        Pics001->Draw(Imge0001[Pics0001[Vrab05].Get_Target()].Texture, Rect01, &Rect02, DirectX::XMVECTORF32({Vrab02[1], Vrab02[2], Vrab02[3], (rxint32(Disp0001[Vrab04]->Trans) / 255) + Vrab06 + Vrab02[0]}), DirectX::XMConvertToRadians(rxint32(Disp0001[Vrab04]->Post_X3)), Flts01, Effc01);
+        Pics001->Draw(Imge0001[Pics0001[Vrab05]->Get_Target()]->Texture, Rect01, &Rect02, DirectX::XMVECTORF32({Vrab02[1], Vrab02[2], Vrab02[3], (rxint32(Disp0001[Vrab04]->Trans) / 255) + Vrab06 + Vrab02[0]}), DirectX::XMConvertToRadians(rxint32(Disp0001[Vrab04]->Post_X3)), Flts01, Effc01);
        }
       break;
       case 3: case 7: // Specific Image Draw
@@ -391,7 +391,7 @@
         
         if(true/*Vrab07 % 90 == 0*/)
         {
-         statics RECT Rect03 = Pics0001[Vrab05].Get_Image();
+         statics RECT Rect03 = Pics0001[Vrab05]->Get_Image();
          Rect02.left = Rect03.left + rint32(ruint64(Disp0001[Vrab04]->Post_X3));
          Rect02.top =  Rect03.top +  rint32(ruint64(Disp0001[Vrab04]->Post_Y3));
          if(Rect03.right < Rect02.left + rint32(ruint64(Disp0001[Vrab04]->Post_X2))){Rect02.right = Rect03.right;} else   {Rect02.right = Rect02.left + rint32(ruint64(Disp0001[Vrab04]->Post_X2));}
@@ -405,7 +405,7 @@
          Rect01.bottom = Rect01.top + (LONG)Disp0001[Vrab04]->Post_Y4 + (Rect02.bottom - Rect02.top); if(Rect01.bottom < Rect01.top) Rect01.bottom = Rect01.top;
         } else
         {
-         statics RECT Rect03 = Pics0001[Vrab05].Get_Specified();
+         statics RECT Rect03 = Pics0001[Vrab05]->Get_Specified();
          Rect02.left = Rect03.left + rint32(ruint64(Disp0001[Vrab04]->Post_X3));
          Rect02.top =  Rect03.top +  rint32(ruint64(Disp0001[Vrab04]->Post_Y3));
          if(Rect03.right < Rect02.left + rint32(ruint64(Disp0001[Vrab04]->Post_X2)) - 1){Rect02.right = Rect03.right;} else   {Rect02.right = Rect02.left + rint32(ruint64(Disp0001[Vrab04]->Post_X2)) - 1;}
@@ -419,7 +419,7 @@
          Rect01.bottom = Rect01.top + (LONG)Disp0001[Vrab04]->Post_Y4 + (Rect02.bottom - Rect02.top); if(Rect01.bottom < Rect01.top) Rect01.bottom = Rect01.top;
         }
 
-        Pics001->Draw(Imge0001[Pics0001[Vrab05].Get_Target()].Texture, Rect01, &Rect02, DirectX::XMVECTORF32({Vrab02[1], Vrab02[2], Vrab02[3], (rxint32(Disp0001[Vrab04]->Trans) / 255) + Vrab06 + Vrab02[0]}), DirectX::XMConvertToRadians(rxint32(Vrab07)), Flts01, Effc01);
+        Pics001->Draw(Imge0001[Pics0001[Vrab05]->Get_Target()]->Texture, Rect01, &Rect02, DirectX::XMVECTORF32({Vrab02[1], Vrab02[2], Vrab02[3], (rxint32(Disp0001[Vrab04]->Trans) / 255) + Vrab06 + Vrab02[0]}), DirectX::XMConvertToRadians(rxint32(Vrab07)), Flts01, Effc01);
        }
       break;
       case 4: case 5: case 8: case 9: // Sprite Image Draw
@@ -433,14 +433,20 @@
         statics insize Vrab05 = Spic0001[Disp0001[Vrab04]->Target]; DirectX::XMFLOAT2 Flts01; RECT Rect02;
         if(true/*Disp0001[Vrab04].Post_X3 % 90 == 0*/)
         {
-         Rect02 = Sprt0001[Vrab05].Get_Image(Disp0001[Vrab04]->Target, (Disp0001[Vrab04]->Type == 5 || Disp0001[Vrab04]->Type == 9)); Flts01 = Sprt0001[Vrab05].Get_Center();
-         Rect01.left += rint32(Flts01.x); Rect01.top += rint32(Flts01.y);
+         Rect02 = Sprt0001[Vrab05]->Get_Image(Disp0001[Vrab04]->Target, (Disp0001[Vrab04]->Type == 5 || Disp0001[Vrab04]->Type == 9)); Flts01 = Sprt0001[Vrab05]->Get_Center();
+         Rect02.left += (LONG)Disp0001[Vrab04]->Post_Y3; Rect02.right  += (LONG)Disp0001[Vrab04]->Post_Y3;
+         Rect02.top  += (LONG)Disp0001[Vrab04]->Post_X4; Rect02.bottom += (LONG)Disp0001[Vrab04]->Post_X4;
+         Rect01.left += (LONG)rint32(Flts01.x);
+         Rect01.top  += (LONG)rint32(Flts01.y);
          Rect01.right = Rect01.left + (LONG)Disp0001[Vrab04]->Post_X2 + (Rect02.right - Rect02.left); if(Rect01.right < Rect01.left) Rect01.right = Rect01.left;
          Rect01.bottom = Rect01.top + (LONG)Disp0001[Vrab04]->Post_Y2 + (Rect02.bottom - Rect02.top); if(Rect01.bottom < Rect01.top) Rect01.bottom = Rect01.top;
         } else
         {
-         Rect02 = Sprt0001[Vrab05].Get_Specified(Disp0001[Vrab04]->Target, (Disp0001[Vrab04]->Type == 5 || Disp0001[Vrab04]->Type == 9)); Flts01 = Sprt0001[Vrab05].Get_Mid();
-         Rect01.left += rint32(Flts01.x) + 1; Rect01.top += rint32(Flts01.y) + 1;
+         Rect02 = Sprt0001[Vrab05]->Get_Specified(Disp0001[Vrab04]->Target, (Disp0001[Vrab04]->Type == 5 || Disp0001[Vrab04]->Type == 9)); Flts01 = Sprt0001[Vrab05]->Get_Mid();
+         Rect02.left += (LONG)Disp0001[Vrab04]->Post_Y3; Rect02.right  += (LONG)Disp0001[Vrab04]->Post_Y3;
+         Rect02.top  += (LONG)Disp0001[Vrab04]->Post_X4; Rect02.bottom += (LONG)Disp0001[Vrab04]->Post_X4;
+         Rect01.left += (LONG)rint32(Flts01.x + 1);
+         Rect01.top  += (LONG)rint32(Flts01.y + 1);
          Rect01.right = Rect01.left + (LONG)Disp0001[Vrab04]->Post_X2 + (Rect02.right - Rect02.left); if(Rect01.right < Rect01.left) Rect01.right = Rect01.left;
          Rect01.bottom = Rect01.top + (LONG)Disp0001[Vrab04]->Post_Y2 + (Rect02.bottom - Rect02.top); if(Rect01.bottom < Rect01.top) Rect01.bottom = Rect01.top;
         }
@@ -448,7 +454,7 @@
         auto Effc01 = DirectX::SpriteEffects_None;
         switch(Disp0001[Vrab04]->Effect){case 1: Effc01 = DirectX::SpriteEffects_FlipHorizontally; break; case 2: Effc01 = DirectX::SpriteEffects_FlipVertically; break; case 3: Effc01 = DirectX::SpriteEffects_FlipBoth; break; default: break;}
         
-        Pics001->Draw(Imge0001[Sprt0001[Vrab05].Get_Target()].Texture, Rect01, &Rect02, DirectX::XMVECTORF32({Vrab02[1], Vrab02[2], Vrab02[3], (rxint32(Disp0001[Vrab04]->Trans) / 255) + Vrab06 + Vrab02[0]}), DirectX::XMConvertToRadians(rxint32(Disp0001[Vrab04]->Post_X3)), Flts01, Effc01);
+        Pics001->Draw(Imge0001[Sprt0001[Vrab05]->Get_Target()]->Texture, Rect01, &Rect02, DirectX::XMVECTORF32({Vrab02[1], Vrab02[2], Vrab02[3], (rxint32(Disp0001[Vrab04]->Trans) / 255) + Vrab06 + Vrab02[0]}), DirectX::XMConvertToRadians(rxint32(Disp0001[Vrab04]->Post_X3)), Flts01, Effc01);
        }
       break;
 	  case 10: // Color Control
@@ -509,7 +515,7 @@
    Stat001 = std::make_unique < DirectX::CommonStates > (Dvis01); Stat001->DepthNone();
    
    D3D11_SAMPLER_DESC Desc01;
-   Desc01.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+   Desc01.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
    Desc01.AddressU = D3D11_TEXTURE_ADDRESS_CLAMP;
    Desc01.AddressV = D3D11_TEXTURE_ADDRESS_CLAMP;
    Desc01.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;

@@ -491,9 +491,9 @@
   unique < HEPTA_GAME > Game0001;
 
   std::vector < insize >        Spic0001;
-  std::vector < HEPTA_IMAGE >   Imge0001;
-  std::vector < HEPTA_SPRITE >  Sprt0001;
-  std::vector < HEPTA_PICTURE > Pics0001;
+  std::vector < unique < HEPTA_IMAGE > >   Imge0001;
+  std::vector < unique < HEPTA_SPRITE > >  Sprt0001;
+  std::vector < unique < HEPTA_PICTURE > > Pics0001;
   std::vector < unique < HEPTA_DISPLAY > > Disp0001;
 
   std::vector < HEPTA_SOUNDPLAY > Sond0001;
@@ -553,14 +553,14 @@
    {
     insize Vrab05 = 0; statics insize Vrab06 = Imge0001.size();
 
-    while(Vrab05 != Vrab06){if(Imge0001[Vrab05].Address == Temp01) break; Vrab05 += 1;}
+    while(Vrab05 != Vrab06){if(Imge0001[Vrab05]->Address == Temp01) break; Vrab05 += 1;}
     if(Vrab05 != Vrab06)
-    {if(!Imge0001[Vrab05].Success) Imge0001[Vrab05] = HEPTA_IMAGE(Temp01, Game0001->m_deviceResources->GetD3DDevice());} else
-    {Imge0001.push_back(HEPTA_IMAGE(Temp01, Game0001->m_deviceResources->GetD3DDevice()));}
-    if(!Imge0001[Vrab05].Success){if(Vrab05 == Vrab06) Imge0001.pop_back(); return rinsize(-1);}
+    {if(!Imge0001[Vrab05]->Success) Imge0001[Vrab05] = std::make_unique < HEPTA_IMAGE > (Temp01, Game0001->m_deviceResources->GetD3DDevice());} else
+    {Imge0001.push_back(std::make_unique < HEPTA_IMAGE > (Temp01, Game0001->m_deviceResources->GetD3DDevice()));}
+    if(!Imge0001[Vrab05]->Success){if(Vrab05 == Vrab06) Imge0001.pop_back(); return rinsize(-1);}
     
     statics insize Vrab07 = Pics0001.size();
-    Pics0001.push_back(HEPTA_PICTURE(Vrab05, Vrab01, Vrab02, Vrab03, Vrab04));
+    Pics0001.push_back(std::make_unique < HEPTA_PICTURE > (Vrab05, Vrab01, Vrab02, Vrab03, Vrab04));
     return Vrab07;
    }
    insize P_Load_Sprite(statics string Temp01, statics uint32 Vrab01, statics uint32 Vrab02, statics uint32 Vrab03 = 1, statics uint32 Vrab04 = 1) perfect
@@ -568,14 +568,14 @@
     if(Vrab03 == 0 || Vrab04 == 0) return rinsize(-1);
     insize Vrab05 = 0; statics insize Vrab06 = Imge0001.size();
 
-    while(Vrab05 != Vrab06){if(Imge0001[Vrab05].Address == Temp01) break; Vrab05 += 1;}
+    while(Vrab05 != Vrab06){if(Imge0001[Vrab05]->Address == Temp01) break; Vrab05 += 1;}
     if(Vrab05 != Vrab06)
-    {if(!Imge0001[Vrab05].Success) Imge0001[Vrab05] = HEPTA_IMAGE(Temp01, Game0001->m_deviceResources->GetD3DDevice());} else
-    {Imge0001.push_back(HEPTA_IMAGE(Temp01, Game0001->m_deviceResources->GetD3DDevice()));}
-    if(!Imge0001[Vrab05].Success){if(Vrab05 == Vrab06) Imge0001.pop_back(); return rinsize(-1);}
+    {if(!Imge0001[Vrab05]->Success) Imge0001[Vrab05] = std::make_unique < HEPTA_IMAGE > (Temp01, Game0001->m_deviceResources->GetD3DDevice());} else
+    {Imge0001.push_back(std::make_unique < HEPTA_IMAGE > (Temp01, Game0001->m_deviceResources->GetD3DDevice()));}
+    if(!Imge0001[Vrab05]->Success){if(Vrab05 == Vrab06) Imge0001.pop_back(); return rinsize(-1);}
 
     statics insize Vrab07 = Sprt0001.size(); statics insize Vrab08 = Spic0001.size(); statics insize Vrab09 = (Vrab01 * Vrab02) + Vrab08; Spic0001.resize(Vrab09);
-    Sprt0001.push_back(HEPTA_SPRITE(Vrab05, Vrab01, Vrab02, Vrab03, Vrab04, Vrab08));
+    Sprt0001.push_back(std::make_unique < HEPTA_SPRITE > (Vrab05, Vrab01, Vrab02, Vrab03, Vrab04, Vrab08));
     for(insize Vrab10 = Vrab08; Vrab10 < Vrab09; ++Vrab10) Spic0001[Vrab10] = Vrab07;
     return Vrab08;
    }
@@ -596,10 +596,10 @@
    {
     if(Vrab02)
     {
-     if(Vrab01 < Spic0001.size()) return Sprt0001[Spic0001[Vrab01]].Get_Width();
+     if(Vrab01 < Spic0001.size()) return Sprt0001[Spic0001[Vrab01]]->Get_Width();
     } else
     {
-     if(Vrab01 < Pics0001.size()) return Pics0001[Vrab01].Get_Width();
+     if(Vrab01 < Pics0001.size()) return Pics0001[Vrab01]->Get_Width();
     }
     return 1;
    }
@@ -607,10 +607,10 @@
    {
     if(Vrab02)
     {
-     if(Vrab01 < Spic0001.size()) return Sprt0001[Spic0001[Vrab01]].Get_Height();
+     if(Vrab01 < Spic0001.size()) return Sprt0001[Spic0001[Vrab01]]->Get_Height();
     } else
     {
-     if(Vrab01 < Pics0001.size()) return Pics0001[Vrab01].Get_Height();
+     if(Vrab01 < Pics0001.size()) return Pics0001[Vrab01]->Get_Height();
     }
     return 1;
    }
@@ -681,7 +681,7 @@
    }
    int0   P_Unload_Sprite(statics insize Vrab01 = 0) perfect
    {
-    if(Vrab01 >= Sprt0001.size()) return; statics insize Vrab02 = Sprt0001[Vrab01].Get_Offset();
+    if(Vrab01 >= Sprt0001.size()) return; statics insize Vrab02 = Sprt0001[Vrab01]->Get_Offset();
     Spic0001.erase(Spic0001.begin() + Vrab02, Spic0001.end());
     Sprt0001.erase(Sprt0001.begin() + Vrab01, Sprt0001.end());
    }
@@ -700,14 +700,14 @@
     while(Vrab01 != 0)
     {
      Vrab01 -= 1;
-     {insize Vrab04 = 0; while(Vrab04 != Vrab02){if(Sprt0001[Vrab04].Get_Target() == Vrab01) break; Vrab04 += 1;} if(Vrab04 != Vrab02) continue;} // Check whenever it's referenced or not.
-     {insize Vrab04 = 0; while(Vrab04 != Vrab03){if(Pics0001[Vrab04].Get_Target() == Vrab01) break; Vrab04 += 1;} if(Vrab04 != Vrab03) continue;} // Check whenever it's referenced or not.
+     {insize Vrab04 = 0; while(Vrab04 != Vrab02){if(Sprt0001[Vrab04]->Get_Target() == Vrab01) break; Vrab04 += 1;} if(Vrab04 != Vrab02) continue;} // Check whenever it's referenced or not.
+     {insize Vrab04 = 0; while(Vrab04 != Vrab03){if(Pics0001[Vrab04]->Get_Target() == Vrab01) break; Vrab04 += 1;} if(Vrab04 != Vrab03) continue;} // Check whenever it's referenced or not.
      
      // Is unreferenced.
      {
       ID3D11Texture2D *Texd01;
-      Imge0001[Vrab01].Data->QueryInterface < ID3D11Texture2D > (&Texd01);
-      Imge0001[Vrab01].Texture->Release(); Imge0001[Vrab01].Data->Release();
+      Imge0001[Vrab01]->Data->QueryInterface < ID3D11Texture2D > (&Texd01);
+      Imge0001[Vrab01]->Texture->Release(); Imge0001[Vrab01]->Data->Release();
       while(true) if(Texd01->Release() == 0) break;
 
       insize Vrab04 = Imge0001.size();
@@ -717,8 +717,8 @@
        while(Vrab04 != Vrab01 + 1)
        {
         Vrab04 -= 1;
-        insize Vrab05 = Vrab02; while(Vrab05 != 0){Vrab05 -= 1; if(Sprt0001[Vrab05].Get_Target() == Vrab04) Sprt0001[Vrab05].Relocate_Target();}
-        insize Vrab06 = Vrab03; while(Vrab06 != 0){Vrab06 -= 1; if(Pics0001[Vrab06].Get_Target() == Vrab04) Pics0001[Vrab06].Relocate_Target();}
+        insize Vrab05 = Vrab02; while(Vrab05 != 0){Vrab05 -= 1; if(Sprt0001[Vrab05]->Get_Target() == Vrab04) Sprt0001[Vrab05]->Relocate_Target();}
+        insize Vrab06 = Vrab03; while(Vrab06 != 0){Vrab06 -= 1; if(Pics0001[Vrab06]->Get_Target() == Vrab04) Pics0001[Vrab06]->Relocate_Target();}
        }
        Imge0001.erase(Imge0001.begin() + Vrab01);
       }
